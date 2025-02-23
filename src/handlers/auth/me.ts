@@ -12,8 +12,8 @@ export default function (knex: Knex) {
         const user = request.auth.credentials.user as User;
         return h
             .response({
-                data: {
-                    id: user.public_id,
+                user: {
+                    public_id: user.public_id,
                     name: user.name,
                     email: user.email,
                 },

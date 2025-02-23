@@ -3,6 +3,7 @@ import { Request } from "@hapi/hapi";
 import { Knex } from "knex";
 import logger from "../../logger.js";
 import { hashPassword, comparePassword } from "../../hash.js";
+import { User } from "../../dto.js";
 
 export default function (knex: Knex) {
     return async (
@@ -37,12 +38,19 @@ export default function (knex: Knex) {
         };
 
         try {
-            const result = await knex("users").insert({
+            const [id] = await knex("users").insert({
                 ...user,
                 password: hashedPassword,
             });
-            if (result.length) {
-                return h.response({ user });
+            if (id) {
+                const authUser = await knex<User>("users")
+                    .where("id", id)
+                    .first(
+                        "name",
+                        "email",
+                        knex.raw("BIN_TO_UUID(public_id, 1) public_id"),
+                    );
+                return h.response({ user: authUser });
             }
 
             throw new Error("user insertion failed.");
