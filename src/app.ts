@@ -11,6 +11,18 @@ const init = async (): Promise<void> => {
     const server = Hapi.server({
         port: conf.appPort,
         host: conf.appHost,
+        routes: {
+            cors: {
+                origin: ["*"],
+                credentials: true,
+                headers: ["Accept", "Content-Type"],
+                additionalHeaders: [
+                    "authorization",
+                    "content-type",
+                    "X-Requested-With",
+                ],
+            },
+        },
     });
 
     // Register JWT plugin
