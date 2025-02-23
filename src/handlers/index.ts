@@ -1,0 +1,10 @@
+export { default as Register } from "./auth/register.js";
+export { default as Login } from "./auth/login.js";
+export { default as Me } from "./auth/me.js";
+export { default as Logout } from "./auth/logout.js";
+export { default as CreateURL } from "./short-url/create-url.js";
+export { default as UpdateURL } from "./short-url/update-url.js";
+export { default as ListURLs } from "./short-url/list-url.js";
+export { default as DeleteURL } from "./short-url/delete-url.js";
+export { default as GetURL } from "./short-url/get-url.js";
+export { default as Slug } from "./redirect.js";

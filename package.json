@@ -1,0 +1,42 @@
+{
+    "name": "deep-origin-api",
+    "version": "1.0.0",
+    "description": "Backend API for generating short URLs.",
+    "main": "app.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "secret": "node -e \"console.log(require('crypto').randomBytes(64).toString('hex'))\"",
+        "start": "tsc --watch & nodemon dist/app.js",
+        "build": "tsc"
+    },
+    "keywords": [
+        "nodejs",
+        "shorturl"
+    ],
+    "author": "Tigran Mesropyan tikodeveloper@gmail.com",
+    "license": "ISC",
+    "dependencies": {
+        "@hapi/hapi": "^21.3.12",
+        "@hapi/jwt": "^3.2.0",
+        "bcrypt": "^5.1.1",
+        "dotenv": "^16.4.7",
+        "joi": "^17.13.3",
+        "knex": "^3.1.0",
+        "mysql2": "^3.12.0",
+        "nanoid": "^5.1.0",
+        "pino": "^9.6.0",
+        "pino-pretty": "^13.0.0",
+        "uuid": "^11.1.0"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "^5.0.2",
+        "@types/hapi__hapi": "^20.0.13",
+        "@types/knex": "^0.15.2",
+        "@types/node": "^22.13.5",
+        "@types/pino": "^7.0.4",
+        "@types/uuid": "^10.0.0",
+        "nodemon": "^3.1.9",
+        "typescript": "^5.7.3"
+    }
+}
