@@ -136,6 +136,22 @@ export default (knex: Knex): ServerRoute[] => {
             handler: ListURLs(knex),
             options: {
                 auth: "jwt",
+                validate: {
+                    query: Joi.object({
+                        currentPage: Joi.number().min(1).optional(),
+                        itemsPerPage: Joi.number()
+                            .integer()
+                            .min(1)
+                            .max(100)
+                            .optional(),
+                    }),
+                    failAction: (request, h, err) => {
+                        return h
+                            .response({ error: err.message })
+                            .code(400)
+                            .takeover();
+                    },
+                },
             },
         },
         {
