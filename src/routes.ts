@@ -150,7 +150,11 @@ export default (knex: Knex): ServerRoute[] => {
                             .max(100)
                             .optional(),
                     }),
-                    failAction: (request, h, err) => {
+                    failAction: (
+                        request: Request,
+                        h: ResponseToolkit,
+                        err: Error | any,
+                    ) => {
                         return h
                             .response({ error: err.message })
                             .code(400)

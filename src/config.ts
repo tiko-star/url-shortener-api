@@ -15,6 +15,8 @@ const {
     DB_USER,
     DB_PASS,
     NODE_ENV,
+    REDIS_HOST,
+    REDIS_PORT,
 } = process.env;
 
 export default {
@@ -28,4 +30,6 @@ export default {
     dbUser: DB_USER,
     dbPass: DB_PASS,
     nodeEnv: NODE_ENV,
+    redisHost: REDIS_HOST,
+    redisPort: Number(REDIS_PORT),
 };

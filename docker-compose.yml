@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+    app:
+        build: .
+        container_name: deep-origin-node-app
+        ports:
+            - "3000:3000"
+        depends_on:
+            mysql:
+                condition: service_started
+            redis:
+                condition: service_started
+        volumes:
+            - .:/app
+            - /app/node_modules
+
+    mysql:
+        image: mysql:8.0
+        container_name: deep-origin-mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysql-data:/var/lib/mysql
+    redis:
+        image: redis:7.2-alpine
+        container_name: deep-origin-redis
+        restart: always
+        ports:
+            - "6379:6379"
+        volumes:
+            - redis-data:/data
+volumes:
+    mysql-data:
+    redis-data:

@@ -6,6 +6,20 @@ import logger from "./logger.js";
 import knex from "./db.js";
 import routes from "./routes.js";
 import { User } from "./dto.js";
+import { RateLimiterRedis } from "rate-limiter-flexible";
+import Redis from "ioredis";
+import { ResponseObject } from "@hapi/hapi";
+
+const redisClient = new Redis({
+    host: conf.redisHost as string,
+    port: conf.redisPort,
+    enableOfflineQueue: false,
+});
+const rateLimiter = new RateLimiterRedis({
+    storeClient: redisClient,
+    points: 100, // 100 requests
+    duration: 60, // per 60 seconds
+});
 
 const init = async (): Promise<void> => {
     const server = Hapi.server({
@@ -24,6 +38,26 @@ const init = async (): Promise<void> => {
             },
         },
     });
+
+    // Middleware for Rate Limiting
+    server.ext(
+        "onRequest",
+        async (
+            request: Request,
+            h: ResponseToolkit,
+        ): Promise<ResponseObject | symbol> => {
+            try {
+                await rateLimiter.consume(request.info.remoteAddress);
+                return h.continue;
+            } catch (rejRes: any) {
+                return h
+                    .response({ error: "too_many_requests" })
+                    .code(429)
+                    .header("Retry-After", String(rejRes.msBeforeNext / 1000))
+                    .takeover();
+            }
+        },
+    );
 
     // Register JWT plugin
     await server.register(Jwt);
