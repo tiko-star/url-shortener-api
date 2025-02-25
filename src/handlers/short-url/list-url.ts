@@ -17,7 +17,7 @@ export default function (knex: Knex) {
 
         try {
             const data = (await knex<ShortURL>("short_urls")
-                .orderBy("id")
+                .orderBy("id", "desc")
                 .limit(limit)
                 .offset(offset)
                 .select(

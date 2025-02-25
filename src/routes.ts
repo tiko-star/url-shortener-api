@@ -34,6 +34,11 @@ export default (knex: Knex): ServerRoute[] => {
                         name: Joi.string().min(2).max(100).required(),
                         email: Joi.string().email().required(),
                         password: Joi.string().min(8).max(30).required(),
+                        password_repeat: Joi.valid(Joi.ref("password"))
+                            .required()
+                            .messages({
+                                "any.only": "Passwords do not match",
+                            }),
                     }),
                     failAction: (
                         request: Request,

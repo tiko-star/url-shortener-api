@@ -2,12 +2,12 @@
     "name": "deep-origin-api",
     "version": "1.0.0",
     "description": "Backend API for generating short URLs.",
-    "main": "app.js",
+    "main": "dist/app.js",
     "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "secret": "node -e \"console.log(require('crypto').randomBytes(64).toString('hex'))\"",
-        "start": "tsc --watch & nodemon dist/app.js",
+        "dev": "tsc --watch & nodemon dist/app.js",
         "build": "tsc"
     },
     "keywords": [
