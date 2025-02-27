@@ -9,7 +9,7 @@ To install and run the application, follow these steps:
 1. **Clone the repository:**
    ```sh
    git clone git@github.com:tiko-star/url-shortener-api.git
-   cd <repo_name>
+   cd url-shortener-api
    ```
 
 2. **Copy the environment configuration file:**
