@@ -38,26 +38,26 @@ To install and run the application, follow these steps:
 
 3. **Run the application using Docker Compose:**
    ```sh
-   docker-compose up --build
+   docker compose up --build
    ```
 
 4. **Generate the `JWT_SECRET` value:**
    After starting the Docker container, enter the Docker image and run:
    ```sh
-   docker exec -it <container_name> npm run secret
+   docker exec -it deep-origin-node-app npm run secret
    ```
    Copy the generated secret and paste it into the `.env` file under `JWT_SECRET`.
 
 5. **Run database migrations:**
    ```sh
-   docker exec -it <container_name> npm run migrate
+   docker exec -it deep-origin-node-app npm run migrate
    ```
    This will apply necessary database migrations.
 
 6. **Restart the instance:**
    After running migrations, restart the Docker container to apply all changes:
    ```sh
-   docker-compose down && docker-compose up --build
+   docker compose down && docker compose up --build
    ```
 
 ## Usage
